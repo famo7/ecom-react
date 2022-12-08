@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:ital,wght@0,400;0,600;0,700;1,500&display=swap');
+
+body{
+font-family: 'Montserrat', sans-serif;}
+.content{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    gap:20px
+}
+.side-bar{
+    margin-left: 40px;
+}
+.header{
+    margin-bottom: 50px;
+}
+.main{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap:30px;
+    padding: 30px;
+}
+
+
+.name{
+    margin-right: 80px;
+    
+}
+

@@ -1,0 +1,46 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "img": "https://api.lorem.space/image/shoes?w=400&h=400",
+      "price": 1400,
+      "name": "Nike LeBron 19",
+      "category":"Men"
+    },
+     {
+       "id": 2,
+       "img": "https://api.lorem.space/image/shoes?w=400&h=400",
+       "price": 1000,
+       "name": "Nike Jordan",
+       "category": "Men"
+     },
+      {
+        "id": 3,
+        "img": "https://api.lorem.space/image/shoes?w=400&h=400",
+        "price": 1200,
+        "name": "Nike Air Max",
+        "category": "Men"
+      },
+       {
+         "id": 4,
+         "img": "https://api.lorem.space/image/shoes?w=400&h=400",
+         "price": 900,
+         "name": "Nike Air Max 90",
+         "category": "Women"
+       },
+        {
+          "id": 5,
+          "img": "https://api.lorem.space/image/shoes?w=400&h=400",
+          "price": 1200,
+          "name": "Nike Air Max",
+          "category": "Women"
+        },
+         {
+           "id": 6,
+           "img": "https://api.lorem.space/image/shoes?w=400&h=400",
+           "price": 1500,
+           "name": "Nike Air Force",
+           "category": "Women"
+         }
+  ]
+}
