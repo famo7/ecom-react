@@ -1,8 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
+import userService from '../services/users';
+import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ setMessage, setSetCssClass, setShowAlert, setUser }) => {
+  let navigate = useNavigate();
+
+  const [loginInfo, setLoginInfo] = useState({
+    email: '',
+    password: '',
+  });
+  function handleChange(e) {
+    setLoginInfo({
+      ...loginInfo,
+      [e.target.name]: e.target.value,
+    });
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    userService
+      .login(loginInfo)
+      .then((response) => {
+        setUser(response);
+        window.localStorage.setItem('ecomUser', JSON.stringify(response));
+        return navigate('/products');
+      })
+      .catch((err) => {
+        setShowAlert(true);
+        setMessage('Wrong credentials, try again!');
+        setSetCssClass('error');
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 5000);
+      });
+  };
   return (
     <div>
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -12,7 +44,7 @@ const Login = () => {
               Sign in
             </h2>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
@@ -20,6 +52,8 @@ const Login = () => {
                   Email address
                 </label>
                 <input
+                  onChange={handleChange}
+                  value={loginInfo.email}
                   id="email-address"
                   name="email"
                   type="email"
@@ -34,6 +68,8 @@ const Login = () => {
                   Password
                 </label>
                 <input
+                  onChange={handleChange}
+                  value={loginInfo.password}
                   id="password"
                   name="password"
                   type="password"

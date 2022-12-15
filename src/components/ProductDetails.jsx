@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'react-daisyui';
 import { useParams } from 'react-router-dom';
 import productsService from '../services/products';
 import Select from 'react-select';
@@ -28,6 +27,7 @@ const ProductDetails = ({ chosenProducts, setChosenProducts, setOpen }) => {
         chosenProducts.concat({
           ...product,
           id: uniqid(),
+          productId: product.id,
           quantity: 1,
           size: size.value,
         })
@@ -51,13 +51,14 @@ const ProductDetails = ({ chosenProducts, setChosenProducts, setOpen }) => {
           chosenProducts.concat({
             ...product,
             id: uniqid(),
+            productId: product.id,
             quantity: 1,
             size: size.value,
           })
         );
       }
     }
-
+    console.log(chosenProducts);
     setOpen(true);
   };
 
@@ -69,7 +70,7 @@ const ProductDetails = ({ chosenProducts, setChosenProducts, setOpen }) => {
             <img
               alt="ecommerce"
               className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-              src={product.img}
+              src={`/api/products/images/${product.img}`}
             />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">

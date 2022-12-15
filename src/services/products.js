@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000/products';
+const url = '/api/products';
 import axios from 'axios';
 const getAllProducts = () => {
   return axios.get(url).then((respons) => {

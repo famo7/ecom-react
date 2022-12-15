@@ -12,6 +12,8 @@
   "dependencies": {
     "@headlessui/react": "^1.7.4",
     "@heroicons/react": "^2.0.13",
+    "@stripe/react-stripe-js": "^1.16.1",
+    "@stripe/stripe-js": "^1.46.0",
     "@tailwindcss/typography": "^0.5.8",
     "axios": "^1.2.0",
     "daisyui": "^2.42.1",

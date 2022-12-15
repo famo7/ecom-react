@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card } from 'react-daisyui';
 import { Link } from 'react-router-dom';
+
 const MainContent = ({ products }) => {
   return (
     <div className="main">
@@ -8,16 +8,20 @@ const MainContent = ({ products }) => {
         return (
           <div key={product.id} className="w-full">
             <Link to={`/products/${product.id}`}>
-              <Card>
-                <Card.Image src={product.img} alt="Shoes" />
-                <Card.Body>
-                  <Card.Title tag="h2">
-                    <p className="name">{product.name}</p>
-                    <p className="price">{product.price} kr</p>
-                  </Card.Title>
+              <div className="card bg-base-100 shadow-xl">
+                <figure>
+                  <img src={`/api/products/images/${product.img}`} />
+                </figure>
+                <div className="card-body">
+                  <h2 className="card-title">
+                    <p>{product.name}</p>
+                    <div className="card-actions justify-end">
+                      <p>{product.price} kr</p>
+                    </div>
+                  </h2>
                   <p>{product.category}</p>
-                </Card.Body>
-              </Card>
+                </div>
+              </div>
             </Link>
           </div>
         );

@@ -1,7 +1,47 @@
 import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import userService from '../services/users';
+import { useNavigate } from 'react-router-dom';
 
-const SignUp = () => {
+const SignUp = ({ setMessage, setSetCssClass, setShowAlert }) => {
+  let navigate = useNavigate();
+
+  const [personField, setpersonField] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  });
+
+  function handleChange(e) {
+    setpersonField({
+      ...personField,
+      [e.target.name]: e.target.value,
+    });
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    userService
+      .signUp(personField)
+      .then((response) => {
+        setShowAlert(true);
+        setMessage('Account successfully created.');
+        setSetCssClass('success');
+        setTimeout(() => {
+          setShowAlert(false);
+          return navigate('/login');
+        }, 5000);
+      })
+      .catch((err) => {
+        setShowAlert(true);
+        setMessage(err.response.data.message);
+        setSetCssClass('error');
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 5000);
+      });
+  };
   return (
     <div>
       <section>
@@ -11,19 +51,37 @@ const SignUp = () => {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Create and account
               </h1>
-              <form className="space-y-4 md:space-y-6">
+              <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label
-                    htmlFor="name"
+                    htmlFor="Firstname"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Name
+                    Firstname
                   </label>
                   <input
-                    type="name"
-                    name="name"
-                    id="name"
-                    placeholder="name"
+                    type="text"
+                    name="firstName"
+                    placeholder="Firstname"
+                    onChange={handleChange}
+                    value={personField.firstName}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="Lastname"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Lastname
+                  </label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    placeholder="Lastname"
+                    onChange={handleChange}
+                    value={personField.lastName}
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required
                   />
@@ -41,6 +99,8 @@ const SignUp = () => {
                     id="email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@company.com"
+                    onChange={handleChange}
+                    value={personField.email}
                     required
                   />
                 </div>
@@ -59,6 +119,8 @@ const SignUp = () => {
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required
+                    onChange={handleChange}
+                    value={personField.password}
                   />
                 </div>
                 <div className="flex items-start">

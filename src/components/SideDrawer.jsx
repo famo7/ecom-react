@@ -2,7 +2,16 @@ import React from 'react';
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-const SideDrawer = ({ chosenProducts, setOpen, open, setChosenProducts }) => {
+import { useNavigate } from 'react-router-dom';
+import payment from '../services/payment';
+const SideDrawer = ({
+  chosenProducts,
+  setOpen,
+  open,
+  setChosenProducts,
+  user,
+}) => {
+  let navigate = useNavigate();
   let sum = 0;
 
   const calculateTotalPrice = () => {
@@ -42,6 +51,13 @@ const SideDrawer = ({ chosenProducts, setOpen, open, setChosenProducts }) => {
   };
   const deleteP = (id) => {
     setChosenProducts(chosenProducts.filter((i) => i.id !== id));
+  };
+  const checkOut = (e) => {
+    setOpen(false);
+    if (user) {
+      return navigate('/address');
+    }
+    return navigate('/login');
   };
 
   return (
@@ -104,8 +120,8 @@ const SideDrawer = ({ chosenProducts, setOpen, open, setChosenProducts }) => {
                                 <li key={product.id} className="flex py-6">
                                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                     <img
-                                      src={product.img}
-                                      alt={product.imageAlt}
+                                      src={`/api/products/images/${product.img}`}
+                                      alt={product.name}
                                       className="h-full w-full object-cover object-center"
                                     />
                                   </div>
@@ -178,6 +194,7 @@ const SideDrawer = ({ chosenProducts, setOpen, open, setChosenProducts }) => {
 
                         <div className="mt-6">
                           <a
+                            onClick={checkOut}
                             href="#"
                             className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                           >
