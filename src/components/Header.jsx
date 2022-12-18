@@ -25,24 +25,18 @@ const Header = ({
         <Navbar>
           <Navbar.Start>
             <Link to="/">
-              <Button color="ghost" className="normal-case text-xl">
+              <button className="font-bold text-lg text-indigo-700">
                 Famoshop
-              </Button>
+              </button>
             </Link>
           </Navbar.Start>
           <Navbar.Center>
             <Link to="/products">
-              <Menu horizontal className=" gap-2">
-                <Menu.Item className="font-bold">
-                  <span className="link link-hover"> Men</span>
-                </Menu.Item>
-                <Menu.Item className="font-bold">
-                  <span className="link link-hover">Women</span>
-                </Menu.Item>
-                <Menu.Item className="font-bold">
-                  <span className="link link-hover">Kids</span>
-                </Menu.Item>
-              </Menu>
+              <ul className="flex gap-7">
+                <li className="text-sm hover:underline ">Men</li>
+                <li className="text-sm hover:underline ">Women</li>
+                <li className="text-sm hover:underline">Kids</li>
+              </ul>
             </Link>
           </Navbar.Center>
           <Navbar.End className="navbar-end gap-2">

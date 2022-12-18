@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
-import payment from '../services/payment';
+import Button from './Button';
 const SideDrawer = ({
   chosenProducts,
   setOpen,
@@ -54,6 +54,9 @@ const SideDrawer = ({
   };
   const checkOut = (e) => {
     setOpen(false);
+    if (chosenProducts.length === 0) {
+      return navigate('/products');
+    }
     if (user) {
       return navigate('/address');
     }
@@ -120,7 +123,7 @@ const SideDrawer = ({
                                 <li key={product.id} className="flex py-6">
                                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                     <img
-                                      src={`/api/products/images/${product.img}`}
+                                      src={product.img}
                                       alt={product.name}
                                       className="h-full w-full object-cover object-center"
                                     />
@@ -193,13 +196,7 @@ const SideDrawer = ({
                         </div>
 
                         <div className="mt-6">
-                          <a
-                            onClick={checkOut}
-                            href="#"
-                            className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-                          >
-                            Checkout
-                          </a>
+                          <Button onClick={checkOut} text="Checkout" />
                         </div>
                         <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                           <p>

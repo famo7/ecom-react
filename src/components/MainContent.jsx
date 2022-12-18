@@ -10,7 +10,10 @@ const MainContent = ({ products }) => {
             <Link to={`/products/${product.id}`}>
               <div className="card bg-base-100 shadow-xl">
                 <figure>
-                  <img src={`/api/products/images/${product.img}`} />
+                  <img
+                    src={product.img}
+                    className="transform transition duration-500 hover:scale-110"
+                  />
                 </figure>
                 <div className="card-body">
                   <h2 className="card-title">

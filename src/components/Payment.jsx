@@ -3,7 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import CheckoutForm from './CheckoutForm';
 import axios from 'axios';
 import { Elements } from '@stripe/react-stripe-js';
-import '../../payment.css';
+
 import { useLocation } from 'react-router-dom';
 
 const Payment = ({ chosenProducts, user }) => {
@@ -34,7 +34,7 @@ const Payment = ({ chosenProducts, user }) => {
     <div className="container">
       {stripePromise && clientSecret && (
         <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <CheckoutForm />
+          <CheckoutForm chosenProducts={chosenProducts} />
         </Elements>
       )}
     </div>

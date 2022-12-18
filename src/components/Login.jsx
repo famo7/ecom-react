@@ -19,11 +19,13 @@ const Login = ({ setMessage, setSetCssClass, setShowAlert, setUser }) => {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
+
     userService
       .login(loginInfo)
       .then((response) => {
         setUser(response);
         window.localStorage.setItem('ecomUser', JSON.stringify(response));
+
         return navigate('/products');
       })
       .catch((err) => {

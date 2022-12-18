@@ -58,7 +58,6 @@ const ProductDetails = ({ chosenProducts, setChosenProducts, setOpen }) => {
         );
       }
     }
-    console.log(chosenProducts);
     setOpen(true);
   };
 
@@ -70,7 +69,7 @@ const ProductDetails = ({ chosenProducts, setChosenProducts, setOpen }) => {
             <img
               alt="ecommerce"
               className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-              src={`/api/products/images/${product.img}`}
+              src={product.img}
             />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">

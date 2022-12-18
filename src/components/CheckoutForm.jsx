@@ -1,7 +1,8 @@
 import { PaymentElement } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
-
+import ProductList from './ProductList';
+// import '../../payment.css';
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
@@ -35,15 +36,21 @@ export default function CheckoutForm() {
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
-      <PaymentElement id="payment-element" />
-      <button disabled={isProcessing || !stripe || !elements} id="submit">
-        <span id="button-text">
-          {isProcessing ? 'Processing ... ' : 'Pay now'}
-        </span>
-      </button>
-      {/* Show any error or success messages */}
-      {message && <div id="payment-message">{message}</div>}
-    </form>
+    <div className="h-screen mt-32  mx-auto flex justify-center gap-48">
+      <form onSubmit={handleSubmit} className="w-96">
+        <PaymentElement />
+        <button
+          disabled={isProcessing || !stripe || !elements}
+          id="submit"
+          className="flex items-center justify-center rounded-md mt-4 border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+        >
+          <span id="button-text">
+            {isProcessing ? 'Processing ... ' : 'Pay now'}
+          </span>
+        </button>
+        {/* Show any error or success messages */}
+        {message && <div id="payment-message">{message}</div>}
+      </form>
+    </div>
   );
 }

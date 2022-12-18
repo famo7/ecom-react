@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect, useState, useReducer } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import SideBar from './components/SideBar';
@@ -16,6 +16,7 @@ import Payment from './components/Payment';
 import Completion from './components/Completion';
 import PrivateRoute from './utils/PrivateRoute';
 import Address from './components/Address';
+
 const App = () => {
   const [chosenProducts, setChosenProducts] = useState([]);
   const [products, setProducts] = useState([]);
@@ -24,6 +25,8 @@ const App = () => {
   const [message, setMessage] = useState('');
   const [setCssClass, setSetCssClass] = useState('');
   const [user, setUser] = useState(null);
+  const [category, setCategory] = useState([]);
+  const [sortBy, setSortBy] = useState(0);
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('ecomUser');
     if (loggedUserJSON) {
@@ -34,9 +37,34 @@ const App = () => {
       setProducts(p);
     });
   }, []);
+  let onSort = products;
+
+  switch (sortBy) {
+    case 1:
+      onSort = products.sort(function (a, b) {
+        return a.price - b.price;
+      });
+      break;
+    case 2:
+      onSort = products.sort(function (a, b) {
+        return b.price - a.price;
+      });
+    case 3:
+      onSort = products.sort((a, b) => a.name.localeCompare(b.name));
+      break;
+    case 4:
+      onSort = products.sort((a, b) => b.name.localeCompare(a.name));
+    default:
+      break;
+  }
+  onSort = products.sort(
+    (a, b) => category.indexOf(b.category) - category.indexOf(a.category)
+  );
+  console.log(onSort);
+  console.log(category);
 
   return (
-    <div>
+    <div className="h-screen mx-32">
       <BrowserRouter>
         <Header
           user={user}
@@ -49,24 +77,31 @@ const App = () => {
         {showAlert && <Message classN={setCssClass} message={message} />}
 
         <Routes>
-          {/* <Route element={<PrivateRoute user={user} />}> */}
-
-          <Route exact path="/completion" element={<Completion />} />
-          <Route exact path="/address" element={<Address />} />
-          <Route
-            exact
-            path="/payment"
-            element={<Payment chosenProducts={chosenProducts} user={user} />}
-          />
-          {/* </Route> */}
+          <Route element={<PrivateRoute user={user} />}>
+            <Route exact path="/completion" element={<Completion />} />
+            <Route
+              exact
+              path="/address"
+              element={<Address chosenProducts={chosenProducts} />}
+            />
+            <Route
+              exact
+              path="/payment"
+              element={<Payment chosenProducts={chosenProducts} user={user} />}
+            />
+          </Route>
           <Route exact path="/" element={<Home />}></Route>
           <Route
             exact
             path="/products"
             element={
               <div className="content">
-                <SideBar />
-                <MainContent products={products} />
+                <SideBar
+                  setSortBy={setSortBy}
+                  setCategory={setCategory}
+                  category={category}
+                />
+                <MainContent products={onSort} />
               </div>
             }
           ></Route>
